@@ -1,0 +1,23 @@
+{
+  "name": "wdywte",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/maps": "^0.4.5",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "googleapis": "^22.2.0",
+    "node": "^9.1.0",
+    "nodemon": "^1.12.1",
+    "request": "^2.83.0"
+  }
+}
