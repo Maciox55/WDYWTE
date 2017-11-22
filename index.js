@@ -16,7 +16,7 @@ var app = express();
 var respon;
 var zip;
 
-var port = process.env.PORT || 3000;
+app.set('port',(process.env.PORT || 3000));
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 ///
@@ -108,7 +108,7 @@ app.use(function(req,res){
 	res.render('404',{title:'Page not found'});
 });
 
-app.listen(port || 3000,function(){
-    console.log('Express started in ' + app.get('env')+' mode '+ 'on localhost:' + port + ' Ctrl+C to Terminate');
+app.listen(app.get('port'),function(){
+    console.log('Express started in ' + app.get('env')+' mode '+ 'on localhost:' + app.get('port') + ' Ctrl+C to Terminate');
 
 });
