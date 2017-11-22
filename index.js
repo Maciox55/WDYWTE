@@ -109,6 +109,6 @@ app.use(function(req,res){
 });
 
 app.listen(port || 3000,function(){
-    console.log('Express started in ' + app.get('env')+' mode '+ 'on localhost:' + app.get('port') + ' Ctrl+C to Terminate');
+    console.log('Express started in ' + app.get('env')+' mode '+ 'on localhost:' + port + ' Ctrl+C to Terminate');
 
 });
