@@ -19,7 +19,7 @@ var zip;
 var port = process.env.PORT || 3000;
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-
+///
 app.use(express.static(__dirname+'/public'));
 app.use(session({
 	secret:credentials.cookieSecret,
