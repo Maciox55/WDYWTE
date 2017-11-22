@@ -23,5 +23,8 @@
     "nodemon": "^1.12.1",
     "request": "^2.83.0",
     "session-memory-store": "^0.2.2"
+  },
+  "engines":{
+    "node":"6.10.2"
   }
 }
