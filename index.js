@@ -108,7 +108,7 @@ app.use(function(req,res){
 	res.render('404',{title:'Page not found'});
 });
 
-app.listen(3000,function(){
+app.listen(process.env.PORT || 3000,function(){
     console.log('Express started in ' + app.get('env')+' mode '+ 'on localhost:' + app.get('port') + ' Ctrl+C to Terminate');
 
 });
