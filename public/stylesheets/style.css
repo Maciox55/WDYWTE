@@ -1,5 +1,4 @@
 html{
-    box-shadow: inset 0px 0px 25px #000000;
     height: 100%;
     width:100%;
 }
@@ -7,6 +6,10 @@ body{
     
     background-color: #ce452d;
     background-image: url("https://www.transparenttextures.com/patterns/absurdity.png");
+}
+.shadow{
+    box-shadow: inset 0px 0px 25px #000000;
+
 }
 .input-group>input,.input-group>input:active,.input-group>input:focus{
     background-color: transparent;
@@ -46,12 +49,18 @@ body{
     text-align: center;
 }
 .result{
+    padding: 24px;
+    position: relative;
     font-family: Kavoon;
-    top: 25vh;
+    top: 0vh;
     font-size: 50px;
     color: #8a211a;
     /*border: 1px solid rgb(0, 0, 0);*/
     /*text-align: center;*/
+}
+.resultName{
+   margin-bottom: 10px;
+
 }
 .filterDropdown{
     border: 2px solid #8a211a;

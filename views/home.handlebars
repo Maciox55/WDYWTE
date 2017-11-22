@@ -1,11 +1,10 @@
 <div class="col-md-12 center">
-    <p>Not Sure What To Eat Today?</p>
-    <form id="ZIPForm" action="enterzip" method="POST" class="row">
-        <div class="col-md-2 offset-md-5 input-group">
+    <p id='tete'>Not Sure What To Eat Today? Witam Paralitykow!</p>
+    <p id='error'></p>
+    
+    <form id="zip" action="submit" method="POST">
+        <div class=" col-md-6 col-lg-4 offset-md-3 offset-lg-4  input-group">
             <input type="text" name="zip" id="zip" class="form-control text-center" placeholder="ZIP Code">
-            <span class="input-group-btn">
-                <button class="btn btn-primary" type="submitGeo"><span class="fa fa-location-arrow"></span></button>
-            </span>
         </div>
         <!--
          <div class="row col-md-8 offset-md-2 filterDropdown">Filters
@@ -20,9 +19,15 @@
             </div>
         </div> 
         -->
+        
         <div class="col-md-2 offset-md-5 test input-group">
-            <button class="btn btn-primary" type="submit" value="Submit">Pick for me!</button>
+            <button  class="btn btn-primary" type="submit" value="Submit">Pick for me!</button>
         </div>
     </form>
-             
+  
+            <span>
+                <button class="btn btn-primary" id="geoLoc" type="submitGeo"><span class="fa fa-location-arrow"></span></button>
+            </span>
+
+             <script src="./js/location.js"></script> 
 </div>
