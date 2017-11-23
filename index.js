@@ -48,7 +48,8 @@ app.get('/submit',function(req,res){
 });
 app.post('/submit',function(req,res){
 	req.session.location = req.body.zip;
-	request('https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+near'+req.session.location+'&key=AIzaSyCuB4WwqsJP1kIPTMFfGvPlu68Hh6GWH-U',function(error,response,body){
+	req.session.filters = req.body.filters;
+	request('https://maps.googleapis.com/maps/api/place/textsearch/json?query='+req.session.filters+'+near'+req.session.location+'&key=AIzaSyCuB4WwqsJP1kIPTMFfGvPlu68Hh6GWH-U',function(error,response,body){
 		if(!error){
 			console.log('status Code',response.statusCode);
 			respon = JSON.parse(body);
@@ -73,7 +74,7 @@ app.post('/submit',function(req,res){
 	});
 });
 app.post('/resubmit',function(req,res){
-	request('https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+near'+req.session.location+'&key=AIzaSyCuB4WwqsJP1kIPTMFfGvPlu68Hh6GWH-U',function(error,response,body){
+	request('https://maps.googleapis.com/maps/api/place/textsearch/json?query='+req.session.filters+'+near'+req.session.location+'&key=AIzaSyCuB4WwqsJP1kIPTMFfGvPlu68Hh6GWH-U',function(error,response,body){
 		if(!error){
 			console.log('status Code',response.statusCode);
 			respon = JSON.parse(body);

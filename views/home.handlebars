@@ -1,24 +1,25 @@
 <div class="col-md-12 center">
-    <p id='tete'>Not Sure What To Eat Today? Witam Paralitykow!</p>
+    <p id='tete'>Not Sure What To Eat Today?</p>
     <p id='error'></p>
     
     <form id="zip" action="submit" method="POST">
         <div class=" col-md-6 col-lg-4 offset-md-3 offset-lg-4  input-group">
             <input type="text" name="zip" id="zip" class="form-control text-center" placeholder="ZIP Code">
+            <select class="input-group-addon" id="range" name="range">
+                <option>10</option>
+                <option>20</option>
+                <option>30</option>
+            </select>
         </div>
-        <!--
-         <div class="row col-md-8 offset-md-2 filterDropdown">Filters
-            <div class="col-md-2 filterItem">
-                <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/17155-200.png">
-            </div>
-            <div class="col-md-2 filterItem">
-                <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/66559-200.png">
-            </div>
-            <div class="col-md-2 filterItem">
-                <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/830214-200.png">
-            </div>
-        </div> 
-        -->
+       <div class="form-group">
+           <label for="filters">Filters:</label>
+           <select class="form-control col-md-6 col-lg-4 offset-md-3 offset-lg-4" id="filters" name="filters">
+               <option>Restaurant</option>
+               <option>Fast Food</option>
+               <option>Breakfast</option>
+           </select>
+           
+       </div>
         
         <div class="col-md-2 offset-md-5 test input-group">
             <button  class="btn btn-primary" type="submit" value="Submit">Pick for me!</button>

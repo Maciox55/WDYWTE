@@ -11,6 +11,7 @@ body{
     box-shadow: inset 0px 0px 25px #000000;
 
 }
+
 .input-group>input,.input-group>input:active,.input-group>input:focus{
     background-color: transparent;
     outline: 0 none;
@@ -25,6 +26,21 @@ body{
 }
 .input-group>input::placeholder{
     color:#a1261d !important; 
+}
+.input-group-addon{
+    background-color: transparent;
+    outline: 0 none;
+    color:#861f18 !important; 
+    font-family: Kavoon;
+    font-size: 24px;
+    border-color: #fff;
+    border: 2px solid #861f18;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+}
+.input-group-addon>option{
+    background-color: transparent;
 }
 .btn-primary{
     background-color: #861f18;
