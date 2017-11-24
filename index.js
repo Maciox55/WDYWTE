@@ -23,7 +23,8 @@ app.set('view engine', 'handlebars');
 app.use(express.static(__dirname+'/public'));
 app.use(session({
 	secret:credentials.cookieSecret,
-	store:new MemoryStore()
+	store:new MemoryStore(),
+	cookie:{maxAge:60000}
 }));
 app.use(require('cookie-parser')(credentials.cookieSecret));
 app.use(bodyParser.json());
@@ -49,6 +50,7 @@ app.get('/submit',function(req,res){
 app.post('/submit',function(req,res){
 	req.session.location = req.body.zip;
 	req.session.filters = req.body.filters;
+	req.session.radius = req.body.radius;
 	request('https://maps.googleapis.com/maps/api/place/textsearch/json?query='+req.session.filters+'+near'+req.session.location+'&key=AIzaSyCuB4WwqsJP1kIPTMFfGvPlu68Hh6GWH-U',function(error,response,body){
 		if(!error){
 			console.log('status Code',response.statusCode);
@@ -100,8 +102,31 @@ app.post('/resubmit',function(req,res){
 });
 app.post('/geolocation',function(req,res){
 		var locat = req.body;
-		console.log(locat);
-		res.send('Location Received');
+		req.session.filters = req.body.filters;
+		console.log(JSON.parse(req.body.pos));
+		request('https://maps.googleapis.com/maps/api/place/textsearch/json?query='+req.session.filters+'+near'+req.body.pos.lat+','+req.body.pos.long+'&key=AIzaSyCuB4WwqsJP1kIPTMFfGvPlu68Hh6GWH-U',function(error,response,body){
+			if(!error){
+				console.log('status Code',response.statusCode);
+				respon = JSON.parse(body);
+				req.session.respon = respon;
+				var random = randomGen.getRandomIntInclusive(0,respon.results.length);
+			}
+			else{
+				console.log('error',error);
+			}
+			if(response.statusCode === 200){
+				req.session.random = random;
+				res.render('result',{title:'Test',
+					placeName:respon.results[random].name,
+					placeAddress:respon.results[random].formatted_address,
+					placeRating:respon.results[random].rating,
+					placePricePoint:respon.results[random].price_level,
+					placeURL:'https://www.google.com/maps/embed/v1/place?key='+credentials.placesAPIKey+'&q=place_id:'+respon.results[random].place_id
+				});
+			}else{
+				res.render('home');
+			}
+		});
 	
 });
 
