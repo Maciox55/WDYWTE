@@ -12,14 +12,19 @@ var userInfo = require('./models/userInfo');
 var placeObj = require('./models/placeObj');
 var session = require('express-session');
 var MemoryStore = require('session-memory-store')(session);
+var randomGen = require('./randomNumber.js');
+
+var requests = require('./requests');
 var app = express();
+var results;
+var locat;
+var query;
 var respon;
 var zip;
 
 app.set('port',(process.env.PORT || 3000));
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-///
 app.use(express.static(__dirname+'/public'));
 app.use(session({
 	secret:credentials.cookieSecret,
@@ -47,34 +52,46 @@ app.get('/', function(req,res){
 app.get('/submit',function(req,res){
 	res.render('result',{title: 'Result'});
 });
-app.post('/submit',function(req,res){
-	req.session.location = req.body.zip;
-	req.session.filters = req.body.filters;
+app.post('/submit',function(req,res,next){
+	req.session.zip = req.body.zip;
+	req.session.filters = req.body.filter;
 	req.session.radius = req.body.radius;
-	request('https://maps.googleapis.com/maps/api/place/textsearch/json?query='+req.session.filters+'+near'+req.session.location+'&key=AIzaSyCuB4WwqsJP1kIPTMFfGvPlu68Hh6GWH-U',function(error,response,body){
-		if(!error){
-			console.log('status Code',response.statusCode);
-			respon = JSON.parse(body);
-			req.session.respon = respon;
-			var random = randomGen.getRandomIntInclusive(0,respon.results.length);
+	locat = requests.geocode(req.body.zip,function(err,result){
+		if(err)
+		{
+			console.log('Something went wrong'+ ' Result: ' + result);
+			res.render('Something Went Wrong', '404');
 		}
 		else{
-			console.log('error',error);
-		}
-		if(response.statusCode === 200){
-			req.session.random = random;
-			res.render('result',{title:'Test',
-				placeName:respon.results[random].name,
-				placeAddress:respon.results[random].formatted_address,
-				placeRating:respon.results[random].rating,
-				placePricePoint:respon.results[random].price_level,
-				placeURL:'https://www.google.com/maps/embed/v1/place?key='+credentials.placesAPIKey+'&q=place_id:'+respon.results[random].place_id
-			});
-		}else{
-			res.render('home');
+			req.session.location = result;
+			console.log(req.session.location.lat+','+req.session.location.lon);
+			next();
 		}
 	});
+	//query = requests.placeSearch(locat,req.body.filter,1000);
+	
+},function(req,res){
+	requests.placeSearch(req.session.location.lat+','+req.session.location.lon,1000,'pizza',function(err,ret){
+		if(err){
+			console.log('Something went wrong');
+			res.render('Something Went Wrong', '404');	
+		}
+		else{
+			var results = ret;
+			req.session.results = ret;
+			req.session.random = randomGen.getRandomIntInclusive(0,results.results.length);
+			//Later render the Results instead of single one, have to make a partial and Results view first
+			res.render('result',{title:'Test',
+			placeName:ret.results[req.session.random].name,
+			placeAddress:ret.results[req.session.random].formatted_address,
+			placeRating:ret.results[req.session.random].rating,
+			placePricePoint:ret.results[req.session.random].price_level,
+			placeURL:'https://www.google.com/maps/embed/v1/place?key='+credentials.placesAPIKey+'&q=place_id:'+ret.results[req.session.random].place_id});
+		}
+	});
+
 });
+
 app.post('/resubmit',function(req,res){
 	request('https://maps.googleapis.com/maps/api/place/textsearch/json?query='+req.session.filters+'+near'+req.session.location+'&key=AIzaSyCuB4WwqsJP1kIPTMFfGvPlu68Hh6GWH-U',function(error,response,body){
 		if(!error){

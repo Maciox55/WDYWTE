@@ -96,7 +96,7 @@ body{
 .filterDropdown{
     border: 2px solid #8a211a;
     border-radius: 10px;
-    color: #861f18;
+    color: #ce452d;
 }
 .filterItem>img{
     opacity: 0.6;
@@ -107,4 +107,7 @@ body{
 .input-group{
     padding: 50px;
 
+}
+.test{
+    color: #861f18;
 }
