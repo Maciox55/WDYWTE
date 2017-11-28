@@ -25,6 +25,7 @@ var zip;
 app.set('port',(process.env.PORT || 3000));
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
+app.set('partialsDir',__dirname+'/views/partials/');
 app.use(express.static(__dirname+'/public'));
 app.use(session({
 	secret:credentials.cookieSecret,
@@ -35,17 +36,21 @@ app.use(require('cookie-parser')(credentials.cookieSecret));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.get('/', function(req,res){
-	if(req.session.visited = false || req.session.respon == undefined){
+	if(req.session.visited = false || req.session.results == undefined){
 		req.session.visited = true;
 		console.log('homepage');
 		res.render('home', {title: 'What Do you want to eat?'});
 	}else{
-		res.render('result',{title:'Test',
-		placeName:req.session.respon.results[req.session.random].name,
-		placeAddress:req.session.respon.results[req.session.random].formatted_address,
-		placeRating:req.session.respon.results[req.session.random].rating,
-		placePricePoint:req.session.respon.results[req.session.random].price_level,
-		placeURL:'https://www.google.com/maps/embed/v1/place?key='+credentials.placesAPIKey+'&q=place_id:'+req.session.respon.results[req.session.random].place_id
+		//res.render('result',{title:'Test',
+		//placeName:req.session.respon.results[req.session.random].name,
+		//placeAddress:req.session.respon.results[req.session.random].formatted_address,
+		//placeRating:req.session.respon.results[req.session.random].rating,
+		//placePricePoint:req.session.respon.results[req.session.random].price_level,
+		//placeURL:'https://www.google.com/maps/embed/v1/place?key='+credentials.placesAPIKey+'&q=place_id:'+req.session.respon.results[req.session.random].place_id
+		//});
+		res.render('results',{title:'Results',
+		results: req.session.results.results,
+
 		});
 	}
 });
@@ -81,12 +86,16 @@ app.post('/submit',function(req,res,next){
 			req.session.results = ret;
 			req.session.random = randomGen.getRandomIntInclusive(0,results.results.length);
 			//Later render the Results instead of single one, have to make a partial and Results view first
-			res.render('result',{title:'Test',
-			placeName:ret.results[req.session.random].name,
-			placeAddress:ret.results[req.session.random].formatted_address,
-			placeRating:ret.results[req.session.random].rating,
-			placePricePoint:ret.results[req.session.random].price_level,
-			placeURL:'https://www.google.com/maps/embed/v1/place?key='+credentials.placesAPIKey+'&q=place_id:'+ret.results[req.session.random].place_id});
+			//res.render('result',{title:'Test',
+			//placeName:ret.results[req.session.random].name,
+			//placeAddress:ret.results[req.session.random].formatted_address,
+			//placeRating:ret.results[req.session.random].rating,
+			//placePricePoint:ret.results[req.session.random].price_level,
+			//placeURL:'https://www.google.com/maps/embed/v1/place?key='+credentials.placesAPIKey+'&q=place_id:'+ret.results[req.session.random].place_id});
+			res.render('results',{title:'Results',
+			results: req.session.results.results,
+
+			});
 		}
 	});
 
