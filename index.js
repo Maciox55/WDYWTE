@@ -103,6 +103,7 @@ app.post('/submit',function(req,res,next){
 app.post('/result/:placeID',function(req,res){
 	console.log(req.params.placeID);
 	//req.sessions.placeID = req.params.placeID;
+	//ss
 	requests.placeDetail(req.params.placeID,function(err,ret){
 		if(err){
 			res.render('Something Went Wrong', '404');	
