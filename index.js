@@ -92,13 +92,31 @@ app.post('/submit',function(req,res,next){
 			//placeRating:ret.results[req.session.random].rating,
 			//placePricePoint:ret.results[req.session.random].price_level,
 			//placeURL:'https://www.google.com/maps/embed/v1/place?key='+credentials.placesAPIKey+'&q=place_id:'+ret.results[req.session.random].place_id});
-			res.render('results',{title:'Results',
+			res.render('results',{title:'What we found',
 			results: req.session.results.results,
 
 			});
 		}
 	});
+});
 
+app.post('/result/:placeID',function(req,res){
+	console.log(req.params.placeID);
+	//req.sessions.placeID = req.params.placeID;
+	requests.placeDetail(req.params.placeID,function(err,ret){
+		if(err){
+			res.render('Something Went Wrong', '404');	
+		}else{
+			res.render('result',{title:'More Detail',
+				results: req.session.results.results,
+				placeName:ret.result.name,
+				placeAddress:ret.result.formatted_address,
+				placeRating:ret.result.rating,
+				placePricePoint:ret.result.price_level,
+				placeURL:'https://www.google.com/maps/embed/v1/place?key='+credentials.placesAPIKey+'&q=place_id:'+ret.result.place_id
+			});
+		}
+	});
 });
 
 app.post('/resubmit',function(req,res){

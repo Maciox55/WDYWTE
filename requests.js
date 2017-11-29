@@ -55,7 +55,34 @@ module.exports = {
 
             }
         });
+    },
+    placeDetail: function(placeID, callback){
+        request('https://maps.googleapis.com/maps/api/place/details/json?placeid='+placeID+'&key='+credentials.placesAPIKey,function(error,response,body){
+            if(!error)
+            { 
+                var resul = JSON.parse(body);
+                console.log(resul);
+                callback(null,resul);
+            }
+            else
+            {
+                console.log('error',error);
+            }
+            if(response.statusCode === 200){
+                //console.log(coords.lat+','+coords.lon);
+                
+               return JSON.parse(body);
+                //return coords.lat+','+coords.lon;
+            }
+            
+            else{
+                return "API request was not successful";
+
+            }
+        });
     }
+
+
    
 
 }
