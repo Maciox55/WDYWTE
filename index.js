@@ -41,13 +41,6 @@ app.get('/', function(req,res){
 		console.log('homepage');
 		res.render('home', {title: 'What Do you want to eat?'});
 	}else{
-		//res.render('result',{title:'Test',
-		//placeName:req.session.respon.results[req.session.random].name,
-		//placeAddress:req.session.respon.results[req.session.random].formatted_address,
-		//placeRating:req.session.respon.results[req.session.random].rating,
-		//placePricePoint:req.session.respon.results[req.session.random].price_level,
-		//placeURL:'https://www.google.com/maps/embed/v1/place?key='+credentials.placesAPIKey+'&q=place_id:'+req.session.respon.results[req.session.random].place_id
-		//});
 		res.render('results',{title:'Results',
 		results: req.session.results.results,
 
@@ -60,7 +53,9 @@ app.get('/submit',function(req,res){
 app.post('/submit',function(req,res,next){
 	req.session.zip = req.body.zip;
 	req.session.filters = req.body.filter;
-	req.session.radius = req.body.radius;
+	req.session.priceRange = req.body.priceRange;
+	req.session.minRating = req.body.minRating;
+	req.session.radius = parseInt(req.body.radius,10);
 	locat = requests.geocode(req.body.zip,function(err,result){
 		if(err)
 		{
@@ -76,7 +71,7 @@ app.post('/submit',function(req,res,next){
 	//query = requests.placeSearch(locat,req.body.filter,1000);
 	
 },function(req,res){
-	requests.placeSearch(req.session.location.lat+','+req.session.location.lon,1000,'pizza',function(err,ret){
+	requests.placeSearch(req.session.location.lat+','+req.session.location.lon,req.session.radius*1609.344,'pizza',function(err,ret){
 		if(err){
 			console.log('Something went wrong');
 			res.render('Something Went Wrong', '404');	

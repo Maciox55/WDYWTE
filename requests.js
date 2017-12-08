@@ -3,15 +3,18 @@ var credentials = require('./credentials.js');
 var http = require('http');
 var https = require('https');
 var randomGen = require('./randomNumber.js');
-
+var util = require('./helperFunctions.js');
 module.exports = {
+
     placeSearch : function(location,radius,filters,callback){
         var result;
         var coords
         request('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+location+'&radius='+radius+'&type=restaurant&keyword='+filters+'&key='+credentials.placesAPIKey,function(error,response,body){
             if(!error){
                 result = JSON.parse(body);
-                var random = randomGen.getRandomIntInclusive(0,result.results.length);        
+                var random = randomGen.getRandomIntInclusive(0,result.results.length);   
+                console.log(radius);
+                
                 callback(null,result);
             }
             else
@@ -81,8 +84,4 @@ module.exports = {
             }
         });
     }
-
-
-   
-
 }

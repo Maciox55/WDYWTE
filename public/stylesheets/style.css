@@ -45,9 +45,14 @@ body{
 .form-control,.form-control>option:active{
     background-color: transparent;
     outline: 0 none;
+    border: none;
     color:#861f18 !important; 
     font-family: Kavoon;
     font-size: 16px;
+}
+.form-control:focus,.form-control>option:active{
+    background-color:transparent;
+
 }
 .btn-primary{
     background-color: #861f18;

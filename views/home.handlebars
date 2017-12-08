@@ -5,17 +5,22 @@
     <form id="zip" action="submit" method="POST">
         <div class=" col-md-8 col-lg-6 col-xl-6 offset-md-2 offset-lg-3 offset-xl-3 input-group">
             <input type="text" name="zip" id="zip" class="form-control text-center" placeholder="ZIP Code">
-            <select class="input-group-addon" id="range" name="range">
+            <select class="input-group-addon" id="radius" name="radius">\
+                <option>1</option>
+                <option>3</option>
+                <option>5</option>
                 <option>10</option>
+                <option>15</option>
                 <option>20</option>
                 <option>30</option>
+                
             </select>
         </div>
         <div class="row">
             <div class="col-6 offset-3">
                 <div class="form-group">
                     <div class="row  lbl-big">
-                        <div class="col-lg-4 col-xl-4 offset-lg-2 offset-xl-2 lbl">Test
+                        <div class="col-lg-3 col-xl-3 offset-lg-1 offset-xl-2 lbl">Type:
                                 <select class="form-control " id="filter" name="filter">
                                     <option>Restaurant</option>
                                     <option>Fast Food</option>
@@ -23,11 +28,22 @@
                                     <option>Bar</option>
                                 </select>
                         </div>
-                        <div class="col-lg-4 col-xl-4 lbl">Test
-                                <select class="form-control " id="type" name="type">
-                                    <option>Restaurant</option>
-                                    <option>Fast Food</option>
-                                    <option>Breakfast</option>
+                        <div class="col-lg-3 col-xl-3 lbl">Min. Rating:
+                                <select class="form-control " id="rating" name="rating">
+                                    <option>0</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                        </div>
+                        <div class="col-lg-3 col-xl-3 lbl">Price Range:
+                                <select class="form-control " id="priceRange" name="priceRange">
+                                    <option>$</option>
+                                    <option>$$</option>
+                                    <option>$$$</option>
+                                    <option>$$$$</option>
                                 </select>
                         </div>
                     </div>
