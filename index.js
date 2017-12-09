@@ -51,11 +51,15 @@ app.get('/submit',function(req,res){
 	res.render('result',{title: 'Result'});
 });
 app.post('/submit',function(req,res,next){
-	req.session.zip = req.body.zip;
-	req.session.filters = req.body.filter;
-	req.session.priceRange = req.body.priceRange;
-	req.session.minRating = req.body.minRating;
-	req.session.radius = parseInt(req.body.radius,10);
+	req.session.searchDetails = {
+		zip: req.body.zip,
+		radius: parseInt(req.body.radius,10),
+		type: req.body.filter,
+		priceRange: req.body.priceRange,
+		minPriceRange: req.body.minPriceRange
+	};
+	console.log(req.body);
+	console.log(req.session.searchDetails);
 	locat = requests.geocode(req.body.zip,function(err,result){
 		if(err)
 		{
@@ -71,7 +75,7 @@ app.post('/submit',function(req,res,next){
 	//query = requests.placeSearch(locat,req.body.filter,1000);
 	
 },function(req,res){
-	requests.placeSearch(req.session.location.lat+','+req.session.location.lon,req.session.radius*1609.344,'pizza',function(err,ret){
+	requests.placeSearch(req.session.location.lat+','+req.session.location.lon,req.session.searchDetails.radius*1609.34,req.session.searchDetails.type,req.session.searchDetails.minPriceRange,req.session.searchDetails.priceRange,function(err,ret){
 		if(err){
 			console.log('Something went wrong');
 			res.render('Something Went Wrong', '404');	

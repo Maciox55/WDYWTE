@@ -6,10 +6,10 @@ var randomGen = require('./randomNumber.js');
 var util = require('./helperFunctions.js');
 module.exports = {
 
-    placeSearch : function(location,radius,filters,callback){
+    placeSearch : function(location,radius,filters,minPriceRange,pricerange,callback){
         var result;
         var coords
-        request('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+location+'&radius='+radius+'&type=restaurant&keyword='+filters+'&key='+credentials.placesAPIKey,function(error,response,body){
+        request('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+location+'&radius='+radius+'&type=restaurant&keyword='+filters+'&minprice='+minPriceRange+'&maxprice='+pricerange+'&key='+credentials.placesAPIKey,function(error,response,body){
             if(!error){
                 result = JSON.parse(body);
                 var random = randomGen.getRandomIntInclusive(0,result.results.length);   
