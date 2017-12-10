@@ -28,9 +28,10 @@ app.set('view engine', 'handlebars');
 app.set('partialsDir',__dirname+'/views/partials/');
 app.use(express.static(__dirname+'/public'));
 app.use(session({
+	resave:true,
 	secret:credentials.cookieSecret,
 	store:new MemoryStore(),
-	cookie:{maxAge:60000}
+	cookie:{maxAge:1800000}
 }));
 app.use(require('cookie-parser')(credentials.cookieSecret));
 app.use(bodyParser.json());

@@ -1,11 +1,16 @@
-<div class="col-12 resultItem">
-    <form id="placeDetail" action="result/{{this.place_id}}" method="POST">
-        <div class="col-2">
-            <h1>{{this.name}}</h1>
-            <p>{{this.vicinity}}</p>
-            <p>Open: {{this.opening_hours.open_now}}</p>
-            <p>PlaceID: {{this.place_id}}</p>
-            <button  class="btn btn-primary" type="result/placeID:" value="Submit">Select</button>
-        </div>
-    </form>
+<div class="col-lg-6">
+    <div class="row col-12 resultItem">
+        <form id="placeDetail" action="result/{{this.place_id}}" method="POST"></form>
+            <div class="col-lg-10">
+                <h3>{{this.name}}</h3>
+                <p>{{this.vicinity}}<br>
+                Open: {{this.opening_hours.open_now}}<br>
+                PlaceID: {{this.place_id}}
+                </p>
+            </div>
+            <div class="col-lg-2">
+                <button  class="btn btn-primary btn-block resultSelect" type="result/placeID:" value="Submit">Select</button>
+            </div>    
+        </form>
+    </div>
 </div>
