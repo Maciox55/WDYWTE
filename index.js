@@ -51,28 +51,44 @@ app.get('/', function(req,res){
 app.get('/submit',function(req,res){
 	res.render('result',{title: 'Result'});
 });
-app.post('/submit',function(req,res,next){
-	req.session.searchDetails = {
-		zip: req.body.zip,
-		radius: parseInt(req.body.radius,10),
-		type: req.body.filter,
-		priceRange: req.body.priceRange,
-		minPriceRange: req.body.minPriceRange
-	};
-	console.log(req.body);
-	console.log(req.session.searchDetails);
-	locat = requests.geocode(req.body.zip,function(err,result){
-		if(err)
-		{
-			console.log('Something went wrong'+ ' Result: ' + result);
-			res.render('Something Went Wrong', '404');
-		}
-		else{
-			req.session.location = result;
-			console.log(req.session.location.lat+','+req.session.location.lon);
-			next();
-		}
+app.get('/result/:placeID',function(req,res){
+	res.render('result',{title:'More Detail',
+		placeName:req.session.selection.placeName,
+		placeAddress:req.session.selection.placeAddress,
+		placeRating:req.session.selection.placeRating,
+		placePricePoint:req.session.selection.placePricePoint,
+		placeURL:req.session.selection.placeURL
 	});
+});
+app.post('/submit',function(req,res,next){
+	if(req.body.zip != ''){
+		req.session.searchDetails = {
+			zip: req.body.zip,
+			radius: parseInt(req.body.radius,10),
+			type: req.body.filter,
+			priceRange: req.body.priceRange,
+			minPriceRange: req.body.minPriceRange
+		};
+		console.log(req.body);
+		console.log(req.session.searchDetails);
+
+		locat = requests.geocode(req.body.zip,function(err,result){
+			if(err)
+			{
+				console.log('Something went wrong'+ ' Result: ' + result);
+				res.render('Something Went Wrong', '404');
+			}
+			else{
+				req.session.location = result;
+				console.log(req.session.location.lat+','+req.session.location.lon);
+				next();
+			}
+		});
+
+	}
+	else{
+		res.render('home',{title: 'Enter ZIP'});
+	}
 	//query = requests.placeSearch(locat,req.body.filter,1000);
 	
 },function(req,res){
@@ -100,22 +116,31 @@ app.post('/submit',function(req,res,next){
 	});
 });
 
-app.post('/result/:placeID',function(req,res){
+app.post('/result/:placeID',function(req,res,next){
 	console.log(req.params.placeID);
 	//req.sessions.placeID = req.params.placeID;
-	//ss
 	requests.placeDetail(req.params.placeID,function(err,ret){
 		if(err){
 			res.render('Something Went Wrong', '404');	
 		}else{
-			res.render('result',{title:'More Detail',
-				results: req.session.results.results,
+			req.session.selection = {
 				placeName:ret.result.name,
 				placeAddress:ret.result.formatted_address,
 				placeRating:ret.result.rating,
 				placePricePoint:ret.result.price_level,
 				placeURL:'https://www.google.com/maps/embed/v1/place?key='+credentials.placesAPIKey+'&q=place_id:'+ret.result.place_id
+			}
+			console.log(req.session.selection.placeName);
+			res.render('result',{title:'More Detail',
+				placeName:req.session.selection.placeName,
+				placeAddress:req.session.selection.placeAddress,
+				placeRating:req.session.selection.placeRating,
+				placePricePoint:req.session.selection.placePricePoint,
+				placeURL:req.session.selection.placeURL
 			});
+			//res.redirect(307,'/result/'+req.params.placeID);
+			//console.log("BITCH ASS NIGGA");
+			
 		}
 	});
 });
@@ -172,7 +197,6 @@ app.post('/geolocation',function(req,res){
 				res.render('home');
 			}
 		});
-	
 });
 
 app.use(function(req,res){

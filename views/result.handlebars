@@ -3,6 +3,7 @@
         <div class="col-sm-12 col-md-6 col-lg-6 offset-md-1 order-sm-1">
             <iframe width="100%" height="400" frameborder="0" style:"border:0"
             src={{placeURL}} allowfullscreen></iframe>
+            
         </div>
         <div class="col-md-5 order-sm-2 resultDetails">Details
             <div class="col-12">Rating:{{placeRating}}</div>
@@ -12,7 +13,7 @@
         
         <div class="col-sm-2 offset-5 order-sm-4">
             <form id="ZIPForm" action="resubmit" method="POST" class="row">
-                <button class="btn btn-primary">Reroll</button>
+                <button class="btn btn-primary" id="pickBtn">Reroll</button>
             </form>
         </div>
 </div>

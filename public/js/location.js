@@ -26,7 +26,7 @@ function callback(position){
     //request.open("POST", "http://localhost:3000/geolocation", true);
     //request.send(JSON.stringify(pos)); 
     $('#tete').text(pos.lat + " : " + pos.long);
-    $.post("/geolocation",JSON.stringify(pos),function(data){
+    $.post("/submit",JSON.stringify(pos),function(data){
       console.log(data);
     });
 };
