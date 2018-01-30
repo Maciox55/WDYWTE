@@ -77,10 +77,10 @@ body{
     text-align: left;
 }
 .center{
-    font-family: Kavoon;
+    font-family: Nunito;
     top: 25vh;
-    font-size: 50px;
-    color: #8a211a;
+    font-size: 60px;
+    color: #42110d;
     /*border: 1px solid rgb(0, 0, 0);*/
     text-align: center;
 }
@@ -128,3 +128,26 @@ body{
 .test{
     color: #861f18;
 }
+
+
+/* Custom BREAKPOINTS!  */
+#tete {font-size:1.5rem;} /*1rem = 16px*/
+/* Small devices (landscape phones, 544px and up) */
+@media (min-width: 544px) {  
+    #tete {font-size:2rem;} /*1rem = 16px*/
+  }
+   
+  /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+  @media (min-width: 768px) {  
+    #tete {font-size:2.5rem;} /*1rem = 16px*/
+  }
+   
+  /* Large devices (desktops, 992px and up) */
+  @media (min-width: 992px) { 
+    #tete {font-size:3rem;} /*1rem = 16px*/
+  }
+   
+  /* Extra large devices (large desktops, 1200px and up) */
+  @media (min-width: 1200px) {  
+    #tete {font-size:3.5rem;} /*1rem = 16px*/    
+  }
