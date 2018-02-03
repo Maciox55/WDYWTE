@@ -80,7 +80,7 @@ app.post('/submit',function(req,res,next){
 			}
 			else{
 				req.session.location = result;
-				console.log(req.session.location.lat+','+req.session.location.lon);
+				//console.log(req.session.location.lat+','+req.session.location.lon);
 				next();
 			}
 		});

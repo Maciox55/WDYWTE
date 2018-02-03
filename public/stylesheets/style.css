@@ -16,7 +16,7 @@ body{
     background-color: transparent;
     outline: 0 none;
     color:#861f18 !important; 
-    font-family: Kavoon;
+    font-family: Nunito;
     font-size: 24px;
     border-color: #fff;
     border: 2px solid #861f18;
@@ -31,7 +31,7 @@ body{
     background-color: transparent;
     outline: 0 none;
     color:#861f18 !important; 
-    font-family: Kavoon;
+    font-family: Nunito;
     font-size: 24px;
     border-color: #fff;
     border: 2px solid #861f18;
@@ -46,8 +46,8 @@ body{
     background-color: transparent;
     outline: 0 none;
     border: none;
-    color:#861f18 !important; 
-    font-family: Kavoon;
+    color:#000000 !important; 
+    font-family: Nunito;
     font-size: 16px;
 }
 .form-control:focus,.form-control>option:active{
@@ -87,10 +87,10 @@ body{
 .result{
     padding: 24px;
     position: relative;
-    font-family: Kavoon;
+    font-family: Nunito;
     top: 0vh;
     font-size: 50px;
-    color: #8a211a;
+    color: #000000;
     /*border: 1px solid rgb(0, 0, 0);*/
     /*text-align: center;*/
 }
