@@ -1,6 +1,6 @@
 <div class="col-lg-6">
     <div class="row col-12 resultItem">
-        <form id="placeDetail" action="result/{{this.place_id}}" method="POST"></form>
+        <form id="{{this.place_id}}" action="result/{{this.place_id}}" method="POST"></form>
             <div class="col-lg-10">
                 <h3>{{this.name}}</h3>
                 <p>{{this.vicinity}}<br>
@@ -9,7 +9,7 @@
                 </p>
             </div>
             <div class="col-lg-2">
-                <button  class="btn btn-primary btn-block resultSelect" type="result/placeID:" value="Submit">Select</button>
+                <button  class="btn btn-primary btn-block resultSelect" form="{{this.place_id}}" type="result/placeID:" value="Submit">Select</button>
             </div>    
         </form>
     </div>
