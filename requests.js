@@ -13,7 +13,7 @@ module.exports = {
             if(!error){
                 result = JSON.parse(body);
                 var random = randomGen.getRandomIntInclusive(0,result.results.length);   
-                console.log(radius);
+                console.log(result);
                 
                 callback(null,result);
             }

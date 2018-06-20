@@ -82,20 +82,25 @@ app.post('/submit',function(req,res,next){
 			res.render('Something Went Wrong', '404');	
 		}
 		else{
-			var results = ret;
-			req.session.results = ret;
-			req.session.random = randomGen.getRandomIntInclusive(0,results.results.length);
-			//Later render the Results instead of single one, have to make a partial and Results view first
-			//res.render('result',{title:'Test',
-			//placeName:ret.results[req.session.random].name,
-			//placeAddress:ret.results[req.session.random].formatted_address,
-			//placeRating:ret.results[req.session.random].rating,
-			//placePricePoint:ret.results[req.session.random].price_level,
-			//placeURL:'https://www.google.com/maps/embed/v1/place?key='+credentials.placesAPIKey+'&q=place_id:'+ret.results[req.session.random].place_id});
-			res.render('results',{title:'What we found',
-			results: req.session.results.results,
-
-			});
+			if(ret.status != 'OVER_QUERY_LIMIT'){
+				var results = ret;
+				req.session.results = ret;
+				req.session.random = randomGen.getRandomIntInclusive(0,results.results.length);
+				//Later render the Results instead of single one, have to make a partial and Results view first
+				//res.render('result',{title:'Test',
+				//placeName:ret.results[req.session.random].name,
+				//placeAddress:ret.results[req.session.random].formatted_address,
+				//placeRating:ret.results[req.session.random].rating,
+				//placePricePoint:ret.results[req.session.random].price_level,
+				//placeURL:'https://www.google.com/maps/embed/v1/place?key='+credentials.placesAPIKey+'&q=place_id:'+ret.results[req.session.random].place_id});
+				res.render('results',{title:'What we found',
+				results: req.session.results.results,
+	
+				});
+			}
+			else{
+				res.render('dailyQuota');
+			}
 		}
 	});
 });
@@ -149,7 +154,7 @@ app.post('/geolocation',function(req,res){
 		var locat = req.body;
 		req.session.filters = req.body.filters;
 		console.log(JSON.parse(req.body.pos));
-		request('https://maps.googleapis.com/maps/api/place/textsearch/json?query='+req.session.filters+'+near'+req.body.pos.lat+','+req.body.pos.long+'&key=AIzaSyCuB4WwqsJP1kIPTMFfGvPlu68Hh6GWH-U',function(error,response,body){
+		request('https://maps.googleapis.com/maps/api/place/textsearch/json?query='+req.session.filters+'+near'+req.body.pos.lat+','+req.body.pos.long+'&key='+credentials.placesAPIKey,function(error,response,body){
 			if(!error){
 				console.log('status Code',response.statusCode);
 				respon = JSON.parse(body);
